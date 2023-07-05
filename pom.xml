@@ -32,7 +32,7 @@
 				<configuration>
 					<classifier>---- select project type ----</classifier>
 					<cloudhub2Deployment>
-						<uri>${anypointPlatformBaseUri}</uri>
+						<uri>https://anypoint.mulesoft.com</uri>
 						<provider>${provider}</provider>
 						<target>${target}</target>
 						<muleVersion>${muleVersion}</muleVersion>
