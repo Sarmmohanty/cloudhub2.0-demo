@@ -48,7 +48,7 @@
 							<updateStrategy>${updateStrategy}</updateStrategy>
 							<http>
 								<inbound>
-									<publicUrl>${publicUrl}</publicUrl>
+									<publicUrl>https://ch2.com/cloudhub2.0-demo-api/</publicUrl>
 									<lastMileSecurity>true</lastMileSecurity>
 									<forwardSslSession>true</forwardSslSession>
 								</inbound>
