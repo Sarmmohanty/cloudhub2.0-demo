@@ -36,6 +36,7 @@
 						<provider>${provider}</provider>
 						<target>${target}</target>
 						<muleVersion>${muleVersion}</muleVersion>
+						<environment>${anypointPlatformEnvName}</environment>
 						<username>${anypointPlatformUsername}</username>
 						<password>${anypointPlatformPassword}</password>
 						<applicationName>${applicationName}</applicationName>
@@ -53,8 +54,7 @@
 								</inbound>
 							</http>
 						</deploymentSettings>
-						<secureProperties>
-							<environment>${anypointPlatformEnvName}</environment>
+						<secureProperties>							
 							<anypoint.platform.client_id>${anypoint_platform_client_id}</anypoint.platform.client_id>
 							<anypoint.platform.client_secret>${anypoint_platform_client_secret}</anypoint.platform.client_secret>
 						</secureProperties>
