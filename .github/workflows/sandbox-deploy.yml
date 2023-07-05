@@ -25,7 +25,7 @@ env:
   # Common Properties for all deployment targets
   anypointPlatformBaseUri: https://anypoint.mulesoft.com/                                    # always https://anypoint.mulesoft.com/
   workflowEnv: sandbox                                                                            # this maps to mule application {env} properties
-  applicationName:  "cloudhub2.0-demo-api"                                    # Application Name in Runtime Manager
+  applicationName:  "cloudhub2-demo-api"                                    # Application Name in Runtime Manager
   muleVersion: 4.4.0                                                                          # Mule Version to be deployed - maps to app.runtime
   anypointPlatformUsername: ${{ secrets.anypoint_username }}                         # Anypoint Platform Identity Username for deployment
   anypointPlatformPassword: ${{ secrets.anypoint_password}}                          # Anypoint Platform Identity Password for deployment
@@ -44,7 +44,7 @@ env:
   clustered: "true"
   updateStrategy: "rolling"
   objectStoreV2: "false"                                                                            # Please provide the value as true or false based on object store usage in your application  
-  publicUrl: "https://ch2.com/cloudhub2.0-demo-api"                                    
+  publicUrl: "https://ch2.com/cloudhub2-demo-api"                                    
 
   anypointPlatformBaseUriProperty: "anypointPlatformBaseUri"                                  # Name of the property that contains the Anypoint Base URI
   muleVersionProperty: "muleVersion"                                                          # Name of the property that contains the MuleSoft runtime version

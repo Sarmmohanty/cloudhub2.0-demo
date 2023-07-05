@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>cc019e21-2cae-4f0a-8551-67c5ace4b427</groupId>
-	<artifactId>cloudhub2.0-demo-api</artifactId>
+	<artifactId>cloudhub2-demo-api</artifactId>
 	<version>1.0.0</version>
 	<packaging>mule-application</packaging>
 
-	<name>cloudhub2.0-demo-api</name>
+	<name>cloudhub2-demo-api</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,7 +48,7 @@
 							<updateStrategy>${updateStrategy}</updateStrategy>
 							<http>
 								<inbound>
-									<publicUrl>https://ch2.com/cloudhub2.0-demo-api/</publicUrl>
+									<publicUrl>https://ch2.com/cloudhub2-demo-api/</publicUrl>
 									<lastMileSecurity>true</lastMileSecurity>
 									<forwardSslSession>true</forwardSslSession>
 								</inbound>
