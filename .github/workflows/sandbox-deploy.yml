@@ -31,7 +31,7 @@ env:
   anypointPlatformPassword: ${{ secrets.anypoint_password}}                          # Anypoint Platform Identity Password for deployment
   anypointPlatformEnvName: Sandbox                                                                # Environment name of the deployment target environment (Case Sensitive)
   anypointPlatformBusinessGroup: "del"                                      # The runtime Business Group (Default: master org)
-  businessGroupId: cc019e21-2cae-4f0a-8551-67c5ace4b427                                       # Businessgroup ID from Anypoint platform
+  businessGroupId: "cc019e21-2cae-4f0a-8551-67c5ace4b427"                                       # Businessgroup ID from Anypoint platform
   anypointPlatformClientId: ${{ secrets.anypoint_platform_client_id }}                    # Cloudhub Environment Client ID
   anypointPlatformClientSecret: ${{ secrets.anypoint_platform_client_secret }}            # Cloudhub Environment Client Secret
   deploymentTimeout: 1000000                                                                  # deployment timeout setting
@@ -129,23 +129,23 @@ jobs:
       run: mvn deploy -e -DskipTests
     - name: Deploy to ${{ env.deploymentTarget }} 
       run: >
-        mvn -e clean package mule:deploy -DskipMunitTests
-        -D${{ env.anypointPlatformBaseUriProperty }}=${{ env.anypointPlatformBaseUri }}
-        -D${{ env.muleVersionProperty }}=${{ env.muleVersion }}
-        "-D${{ env.usernameProperty }}=${{ env.anypointPlatformUsername }}"
-        "-D${{ env.passwordProperty }}=${{ env.anypointPlatformPassword }}"
-        -D${{ env.vCoresProperty }}=${{ env.vCores }}
-        -D${{ env.anypointPlatformEnvProperty }}=${{ env.anypointPlatformEnvName }}
-        -D${{ env.businessgroupIdProperty }}=${{ env.businessGroupId }}
-        "-D${{ env.anypointPlatformBusinessGroupProperty }}=${{ env.anypointPlatformBusinessGroup }}"
-        -D${{ env.anypointPlatformClientIdProperty }}=${{ env.anypointPlatformClientId }}
-        -D${{ env.anypointPlatformClientSecretProperty }}=${{ env.anypointPlatformClientSecret }}
-        -D${{ env.regionProperty }}=${{ env.anypointPlatformRegionName }}
-        -D${{ env.replicasProperty }}=${{ env.replicas }}
-        -D${{ env.targetProperty }}=${{ env.target }}
-        -D${{ env.providerProperty }}=${{ env.provider }}
-        -D${{ env.clusteredProperty }}=${{ env.clustered }}
-        -D${{ env.updateStrategyProperty }}=${{ env.updateStrategy }}
-        -D${{ env.objectStoreV2Property }}=${{ env.objectStoreV2 }}
-        -D${{ env.publicUrlProperty }}=${{ env.publicUrl }}
+        mvn -e clean deploy -DskipMunitTests -DmuleDeploy \
+        -D${{ env.anypointPlatformBaseUriProperty }}=${{ env.anypointPlatformBaseUri }} \
+        -D${{ env.muleVersionProperty }}=${{ env.muleVersion }} \
+        "-D${{ env.usernameProperty }}=${{ env.anypointPlatformUsername }}" \
+        "-D${{ env.passwordProperty }}=${{ env.anypointPlatformPassword }}" \
+        -D${{ env.vCoresProperty }}=${{ env.vCores }} \
+        -D${{ env.anypointPlatformEnvProperty }}=${{ env.anypointPlatformEnvName }} \
+        -D${{ env.businessgroupIdProperty }}=${{ env.businessGroupId }} \
+        "-D${{ env.anypointPlatformBusinessGroupProperty }}=${{ env.anypointPlatformBusinessGroup }}" \
+        -D${{ env.anypointPlatformClientIdProperty }}=${{ env.anypointPlatformClientId }} \
+        -D${{ env.anypointPlatformClientSecretProperty }}=${{ env.anypointPlatformClientSecret }} \
+        -D${{ env.regionProperty }}=${{ env.anypointPlatformRegionName }} \
+        -D${{ env.replicasProperty }}=${{ env.replicas }} \
+        -D${{ env.targetProperty }}=${{ env.target }} \
+        -D${{ env.providerProperty }}=${{ env.provider }} \
+        -D${{ env.clusteredProperty }}=${{ env.clustered }} \
+        -D${{ env.updateStrategyProperty }}=${{ env.updateStrategy }} \
+        -D${{ env.objectStoreV2Property }}=${{ env.objectStoreV2 }} \
+        -D${{ env.publicUrlProperty }}=${{ env.publicUrl }} \
         -D${{ env.deploymentTimeoutProperty }}=${{ env.deploymentTimeout }}
