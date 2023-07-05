@@ -145,5 +145,5 @@ jobs:
         -D${{ env.providerProperty }}=${{ env.provider }} \
         -D${{ env.clusteredProperty }}=${{ env.clustered }} \
         -D${{ env.updateStrategyProperty }}=${{ env.updateStrategy }} \
-        -D${{ env.publicUrlProperty }}=${{ env.publicUrl }} \
+        "-D${{ env.publicUrlProperty }}=${{ env.publicUrl }}" \
         -D${{ env.deploymentTimeoutProperty }}=${{ env.deploymentTimeout }} \
