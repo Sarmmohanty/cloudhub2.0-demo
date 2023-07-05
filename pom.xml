@@ -48,9 +48,9 @@
 							<updateStrategy>${updateStrategy}</updateStrategy>
 							<http>
 								<inbound>
-									<publicUrl>https://ch2.com/cloudhub2-demo-api/</publicUrl>
-									<lastMileSecurity>true</lastMileSecurity>
-									<forwardSslSession>true</forwardSslSession>
+									<publicUrl>${publicUrl}</publicUrl>
+									<lastMileSecurity>${lastMileSecurity}</lastMileSecurity>
+									<forwardSslSession>${forwardSslSession}</forwardSslSession>
 								</inbound>
 							</http>
 						</deploymentSettings>

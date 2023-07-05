@@ -44,7 +44,9 @@ env:
   clustered: "true"
   updateStrategy: "rolling"
   objectStoreV2: "false"                                                                            # Please provide the value as true or false based on object store usage in your application  
-  publicUrl: "https://ch2.com/cloudhub2-demo-api"                                    
+  publicUrl: "https://ch2.com/cloudhub2-demo-api"
+  forwardSslSession: "false"
+  lastMileSecurity: "false"
 
   anypointPlatformBaseUriProperty: "anypointPlatformBaseUri"                                  # Name of the property that contains the Anypoint Base URI
   muleVersionProperty: "muleVersion"                                                          # Name of the property that contains the MuleSoft runtime version
@@ -70,6 +72,8 @@ env:
   updateStrategyProperty: "updateStrategy" #To avoid zero downtime
   objectStoreV2Property: "objectStoreV2"
   publicUrlProperty: "publicUrl"                                                              # Name of the property that contains the publicUrl
+  forwardSslSessionProperty: "forwardSslSession"
+  lastMileSecurityProperty: "lastMileSecurity"
 
 
 # **************************************** DO NOT MAKE ANY CHANGES TO THIS SCRIPT BELOW THIS POINT ****************************************************
@@ -129,4 +133,4 @@ jobs:
       run: mvn deploy -e -DskipTests
     - name: Deploy to ${{ env.deploymentTarget }} 
       run: >
-        mvn clean deploy -DskipMunitTests -DmuleDeploy -D${{ env.muleVersionProperty }}=${{ env.muleVersion }} "-D${{ env.usernameProperty }}=${{ env.anypointPlatformUsername }}" "-D${{ env.passwordProperty }}=${{ env.anypointPlatformPassword }}" -D${{ env.vCoresProperty }}=${{ env.vCores }} -D${{ env.anypointPlatformEnvProperty }}=${{ env.anypointPlatformEnvName }} -D${{ env.businessgroupIdProperty }}=${{ env.businessGroupId }} -D${{ env.applicationNameProperty }}=${{ env.applicationName }} -D${{ env.anypointPlatformClientIdProperty }}=${{ env.anypointPlatformClientId }} -D${{ env.anypointPlatformClientSecretProperty }}=${{ env.anypointPlatformClientSecret }} -D${{ env.replicasProperty }}=${{ env.replicas }} -D${{ env.targetProperty }}=${{ env.target }} -D${{ env.providerProperty }}=${{ env.provider }} -D${{ env.clusteredProperty }}=${{ env.clustered }} -D${{ env.updateStrategyProperty }}=${{ env.updateStrategy }} -D${{ env.publicUrlProperty }}=${{ env.publicUrl }} -D${{ env.deploymentTimeoutProperty }}=${{ env.deploymentTimeout }}
+        mvn clean deploy -DskipMunitTests -DmuleDeploy -D${{ env.muleVersionProperty }}=${{ env.muleVersion }} "-D${{ env.usernameProperty }}=${{ env.anypointPlatformUsername }}" "-D${{ env.passwordProperty }}=${{ env.anypointPlatformPassword }}" -D${{ env.vCoresProperty }}=${{ env.vCores }} -D${{ env.anypointPlatformEnvProperty }}=${{ env.anypointPlatformEnvName }} -D${{ env.businessgroupIdProperty }}=${{ env.businessGroupId }} -D${{ env.applicationNameProperty }}=${{ env.applicationName }} -D${{ env.anypointPlatformClientIdProperty }}=${{ env.anypointPlatformClientId }} -D${{ env.anypointPlatformClientSecretProperty }}=${{ env.anypointPlatformClientSecret }} -D${{ env.replicasProperty }}=${{ env.replicas }} -D${{ env.targetProperty }}=${{ env.target }} -D${{ env.providerProperty }}=${{ env.provider }} -D${{ env.clusteredProperty }}=${{ env.clustered }} -D${{ env.updateStrategyProperty }}=${{ env.updateStrategy }} -D${{ env.publicUrlProperty }}=${{ env.publicUrl }} -D${{ env.forwardSslSessionProperty }}=${{ env.forwardSslSession }} -D${{ env.lastMileSecurityProperty }}=${{ env.lastMileSecurity }} -D${{ env.deploymentTimeoutProperty }}=${{ env.deploymentTimeout }}
