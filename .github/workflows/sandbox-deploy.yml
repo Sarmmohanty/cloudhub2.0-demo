@@ -38,7 +38,7 @@ env:
   anypointPlatformRegionName: us-east-1                                                       # standard naming convention 
   deploymentTarget: "CloudHub2.0"                                                                     
   replicas: 2
-  vCores: 1
+  vCores: 0.2
   target: Cloudhub-US-East-2
   provider: MC
   clustered: "true"
@@ -129,4 +129,4 @@ jobs:
       run: mvn deploy -e -DskipTests
     - name: Deploy to ${{ env.deploymentTarget }} 
       run: >
-        mvn -X clean deploy -DskipMunitTests -DmuleDeploy -D${{ env.muleVersionProperty }}=${{ env.muleVersion }} "-D${{ env.usernameProperty }}=${{ env.anypointPlatformUsername }}" "-D${{ env.passwordProperty }}=${{ env.anypointPlatformPassword }}" -D${{ env.vCoresProperty }}=${{ env.vCores }} -D${{ env.anypointPlatformEnvProperty }}=${{ env.anypointPlatformEnvName }} -D${{ env.businessgroupIdProperty }}=${{ env.businessGroupId }} -D${{ env.applicationNameProperty }}=${{ env.applicationName }} -D${{ env.anypointPlatformClientIdProperty }}=${{ env.anypointPlatformClientId }} -D${{ env.anypointPlatformClientSecretProperty }}=${{ env.anypointPlatformClientSecret }} -D${{ env.replicasProperty }}=${{ env.replicas }} -D${{ env.targetProperty }}=${{ env.target }} -D${{ env.providerProperty }}=${{ env.provider }} -D${{ env.clusteredProperty }}=${{ env.clustered }} -D${{ env.updateStrategyProperty }}=${{ env.updateStrategy }} -D${{ env.deploymentTimeoutProperty }}=${{ env.deploymentTimeout }}
+        mvn clean deploy -DskipMunitTests -DmuleDeploy -D${{ env.muleVersionProperty }}=${{ env.muleVersion }} "-D${{ env.usernameProperty }}=${{ env.anypointPlatformUsername }}" "-D${{ env.passwordProperty }}=${{ env.anypointPlatformPassword }}" -D${{ env.vCoresProperty }}=${{ env.vCores }} -D${{ env.anypointPlatformEnvProperty }}=${{ env.anypointPlatformEnvName }} -D${{ env.businessgroupIdProperty }}=${{ env.businessGroupId }} -D${{ env.applicationNameProperty }}=${{ env.applicationName }} -D${{ env.anypointPlatformClientIdProperty }}=${{ env.anypointPlatformClientId }} -D${{ env.anypointPlatformClientSecretProperty }}=${{ env.anypointPlatformClientSecret }} -D${{ env.replicasProperty }}=${{ env.replicas }} -D${{ env.targetProperty }}=${{ env.target }} -D${{ env.providerProperty }}=${{ env.provider }} -D${{ env.clusteredProperty }}=${{ env.clustered }} -D${{ env.updateStrategyProperty }}=${{ env.updateStrategy }} -D${{ env.publicUrlProperty }}=${{ env.publicUrl }} -D${{ env.deploymentTimeoutProperty }}=${{ env.deploymentTimeout }}
