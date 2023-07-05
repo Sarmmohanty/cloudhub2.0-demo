@@ -39,7 +39,7 @@ env:
   deploymentTarget: "CloudHub2.0"                                                                     
   replicas: 2
   vCores: 1
-  target: afm-ps
+  target: Cloudhub-US-East-2
   provider: MC
   clustered: "true"
   updateStrategy: "rolling"
