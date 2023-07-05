@@ -39,8 +39,8 @@ env:
   deploymentTarget: "CloudHub2.0"                                                                     
   replicas: 2
   vCores: 1
-  target: "afm-ps"
-  provider: "MC"
+  target: afm-ps
+  provider: MC
   clustered: "true"
   updateStrategy: "rolling"
   objectStoreV2: "false"                                                                            # Please provide the value as true or false based on object store usage in your application  
@@ -129,7 +129,7 @@ jobs:
       run: mvn deploy -e -DskipTests
     - name: Deploy to ${{ env.deploymentTarget }} 
       run: >
-        mvn clean package mule:deploy -DattachMuleSources=true -DskipMunitTests
+        mvn -e clean package mule:deploy -DattachMuleSources=true -DskipMunitTests
         -D${{ env.muleVersionProperty }}=${{ env.muleVersion }}
         "-D${{ env.usernameProperty }}=${{ env.anypointPlatformUsername }}"
         "-D${{ env.passwordProperty }}=${{ env.anypointPlatformPassword }}"
@@ -145,6 +145,5 @@ jobs:
         -D${{ env.providerProperty }}=${{ env.provider }}
         -D${{ env.clusteredProperty }}=${{ env.clustered }}
         -D${{ env.updateStrategyProperty }}=${{ env.updateStrategy }}
-        -D${{ env.objectStoreV2Property }}=${{ env.objectStoreV2 }}
         -D${{ env.publicUrlProperty }}=${{ env.publicUrl }}
         -D${{ env.deploymentTimeoutProperty }}=${{ env.deploymentTimeout }}
