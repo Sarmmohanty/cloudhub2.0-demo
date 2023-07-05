@@ -23,7 +23,7 @@ env:
                                                                        # Application Project name
 
   # Common Properties for all deployment targets
-  anypointPlatformBaseUri: https://anypoint.mulesoft.com/                                     # always https://anypoint.mulesoft.com/
+  anypointPlatformBaseUri: "https://anypoint.mulesoft.com/"                                     # always https://anypoint.mulesoft.com/
   workflowEnv: sandbox                                                                            # this maps to mule application {env} properties
   applicationName:  "cloudhub2.0-demo-api"                                    # Application Name in Runtime Manager
   muleVersion: 4.4.0                                                                          # Mule Version to be deployed - maps to app.runtime
