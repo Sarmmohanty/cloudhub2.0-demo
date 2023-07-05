@@ -1,0 +1,151 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Sandbox Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - sandbox
+
+# Set environment variables
+env:
+
+  # notes for applications properties (update pom.xml with these values and update both notes & pom.xml when change is needed):
+  # <app.runtime>: 4.2.2                  # Please keep runtime updated to the latest
+  # <mule.maven.plugin.version>: 3.3.5    # please keep plugin updated to the latest
+
+  # remember to update constant value of the following properties in pom.xml:
+  # <artifactId>, <groupId>, <version>
+
+  #
+  # Core pom.xml Properties (Required - These values must match pom.xml - DO NOT replace pom.xml with these variables)
+                                                                       # Application Project name
+
+  # Common Properties for all deployment targets
+  anypointPlatformBaseUri: https://anypoint.mulesoft.com/                                     # always https://anypoint.mulesoft.com/
+  workflowEnv: sandbox                                                                            # this maps to mule application {env} properties
+  applicationName:  cloudhub2.0-demo-api                                    # Application Name in Runtime Manager
+  muleVersion: 4.4.0                                                                          # Mule Version to be deployed - maps to app.runtime
+  anypointPlatformUsername: ${{ secrets.anypoint_username }}                         # Anypoint Platform Identity Username for deployment
+  anypointPlatformPassword: ${{ secrets.anypoint_password}}                          # Anypoint Platform Identity Password for deployment
+  anypointPlatformEnvName: Sandbox                                                                # Environment name of the deployment target environment (Case Sensitive)
+  anypointPlatformBusinessGroup: "del"                                      # The runtime Business Group (Default: master org)
+  businessGroupId: cc019e21-2cae-4f0a-8551-67c5ace4b427                                       # Businessgroup ID from Anypoint platform
+  anypointPlatformClientId: ${{ secrets.anypoint_platform_client_id }}                    # Cloudhub Environment Client ID
+  anypointPlatformClientSecret: ${{ secrets.anypoint_platform_client_secret }}            # Cloudhub Environment Client Secret
+  deploymentTimeout: 1000000                                                                  # deployment timeout setting
+  anypointPlatformRegionName: us-east-1                                                       # standard naming convention 
+  deploymentTarget: "CloudHub2.0"                                                                     
+  replicas: 2
+  vCores: 1
+  target: "afm-ps"
+  provider: "MC"
+  clustered: "true"
+  updateStrategy: "rolling"
+  objectStoreV2: "false"                                                                            # Please provide the value as true or false based on object store usage in your application  
+  publicUrl: "https://ch2.com/cloudhub2.0-demo-api"                                    
+
+  anypointPlatformBaseUriProperty: "anypointPlatformBaseUri"                                  # Name of the property that contains the Anypoint Base URI
+  muleVersionProperty: "muleVersion"                                                          # Name of the property that contains the MuleSoft runtime version
+  usernameProperty: "username"                                                                # Name of the property that contains the Anypoint deployment username
+  passwordProperty: "password"                                                                # Name of the property that contains the Anypoint deployment password
+  anypointPlatformEnvProperty: "anypoint_platform_env"                                        # Name of the property that contains the Anypoint environment
+  businessgroupIdProperty: "businessgroupId"                                                  # Name of the property that contains the Anypoint Business Group Id
+  anypointPlatformBusinessGroupProperty: "anypoint_platform_business_group"                   # Name of the property that contains the Anypoint Business Group Name
+  applicationNameProperty: "applicationName"                                                  # Name of the property that contains the application name
+  envProperty: "env"                                                                          # Name of the property that selects the appropriate config files
+  anypointPlatformClientIdProperty: "anypoint_platform_client_id"                             # Name of the property that contains the Anypoint Platform Client Id
+  anypointPlatformClientSecretProperty: "anypoint_platform_client_secret"                     # Name of the property that contains the Anypoint Platform Client Secret
+  regionProperty: "region"                                                                    # Name of the property that contains the region e.g. use1
+  targetProperty: "target"                                                                    # Name of the property that contains the CloudHub2.0 target
+  apiProjectProperty: "apiProject"                                                            # Name of the property that contains the name of the project
+  deploymentTimeoutProperty: "deploymentTimeout"                                              # Name of the property that contains the Deployment timeout value
+  anypointMQClientIdProperty: "mq_client_id"                                                  # Name of the property that contains the Anypoint MQ Client Id
+  anypointMQClientSecretProperty: "mq_client_secret"                                          # Name of the property that contains the Anypoint MQ Client Secret
+  replicasProperty: "replicas"
+  vCoresProperty: "vCores"
+  providerProperty: "provider"
+  clusteredProperty: "clustered"
+  updateStrategyProperty: "updateStrategy" #To avoid zero downtime
+  objectStoreV2Property: "objectStoreV2"
+  publicUrlProperty: "publicUrl"                                                              # Name of the property that contains the publicUrl
+
+
+# **************************************** DO NOT MAKE ANY CHANGES TO THIS SCRIPT BELOW THIS POINT ****************************************************
+jobs:
+  Build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8 version
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        #path: ~/.m2/repository
+        #server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        #settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+    - name: Create maven settings.xml
+      uses: whelk-io/maven-settings-xml-action@v9
+      with:
+        servers: '[
+          {
+            "id": "anypoint-exchange-v2", 
+            "username": "${{ secrets.anypoint_username }}", 
+            "password": "${{ secrets.anypoint_password}}" 
+            },
+            {
+            "id": "anypoint-exchange-v3", 
+            "username": "~~~Client~~~", 
+            "password": "${{ secrets.CONNECTED_APP_ID}}~?~${{secrets.CONNECTED_APP_SECRET}}" 
+            },
+          {
+            "id": "MuleRepository", 
+            "username": "${{ secrets.MULE_ENT_USERNAME_NEXUS }}", 
+            "password": "${{ secrets.MULE_ENT_PASSWORD_NEXUS }}" 
+            }, 
+          {
+            "id": "github", 
+            "username": "${{secrets.githubusername}}", 
+            "password": "${{secrets.githubtoken}}" 
+            }
+        ]'
+        repositories: '[
+          {
+            "id": "MuleRepository", 
+            "url": "https://repository.mulesoft.org/nexus-ee/content/repositories/releases-ee/"
+            },
+          {
+            "id": "anypoint-exchange-v2", 
+            "url": "https://maven.anypoint.mulesoft.com/api/v2/maven"
+            }
+        ]'
+
+    - run: |
+        cat ~/.m2/settings.xml
+    - name: Publish a package
+      run: mvn deploy -e -DskipTests
+    - name: Deploy to ${{ env.deploymentTarget }} 
+      run: >
+        mvn clean package mule:deploy -DattachMuleSources=true -DskipMunitTests
+        -D${{ env.anypointPlatformBaseUriProperty }}=${{ env.anypointPlatformBaseUri }}
+        -D${{ env.muleVersionProperty }}=${{ env.muleVersion }}
+        "-D${{ env.usernameProperty }}=${{ env.anypointPlatformUsername }}"
+        "-D${{ env.passwordProperty }}=${{ env.anypointPlatformPassword }}"
+        -D${{ env.vCoresProperty }}=${{ env.vCores }}
+        -D${{ env.anypointPlatformEnvProperty }}=${{ env.anypointPlatformEnvName }}
+        -D${{ env.businessgroupIdProperty }}=${{ env.businessGroupId }}
+        "-D${{ env.anypointPlatformBusinessGroupProperty }}=${{ env.anypointPlatformBusinessGroup }}"
+        -D${{ env.anypointPlatformClientIdProperty }}=${{ env.anypointPlatformClientId }}
+        -D${{ env.anypointPlatformClientSecretProperty }}=${{ env.anypointPlatformClientSecret }}
+        -D${{ env.regionProperty }}=${{ env.anypointPlatformRegionName }}
+        -D${{ env.replicasProperty }}=${{ env.replicas }}
+        -D${{ env.targetProperty }}=${{ env.target }}
+        -D${{ env.providerProperty }}=${{ env.provider }}
+        -D${{ env.clusteredProperty }}=${{ env.clustered }}
+        -D${{ env.updateStrategyProperty }}=${{ env.updateStrategy }}
+        -D${{ env.objectStoreV2Property }}=${{ env.objectStoreV2 }}
+        -D${{ env.publicUrlProperty }}=${{ env.publicUrl }}
+        -D${{ env.deploymentTimeoutProperty }}=${{ env.deploymentTimeout }}
