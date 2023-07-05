@@ -30,7 +30,7 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<classifier>---- select project type ----</classifier>
+					<classifier>mule-application</classifier>
 					<cloudhub2Deployment>
 						<uri>https://anypoint.mulesoft.com</uri>
 						<provider>${provider}</provider>
@@ -42,7 +42,6 @@
 						<businessGroupId>${businessGroupId}</businessGroupId>
 						<replicas>${replicas}</replicas>
 						<vCores>${vCores}</vCores>
-						<properties/>
 						<deploymentSettings>
 							<clustered>${clustered}</clustered>
 							<updateStrategy>${updateStrategy}</updateStrategy>
