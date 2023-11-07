@@ -6,13 +6,13 @@ name: Sandbox Deployment Pipeline
 on:
   push:
     branches:
-      - sandbox
+      - sandbox-deploy
 
 # Set environment variables
 env:
 
   # notes for applications properties (update pom.xml with these values and update both notes & pom.xml when change is needed):
-  # <app.runtime>: 4.2.2                  # Please keep runtime updated to the latest
+  # <app.runtime>: 4.4.0                  # Please keep runtime updated to the latest
   # <mule.maven.plugin.version>: 3.3.5    # please keep plugin updated to the latest
 
   # remember to update constant value of the following properties in pom.xml:
@@ -106,11 +106,6 @@ jobs:
             "password": "${{ secrets.CONNECTED_APP_ID}}~?~${{secrets.CONNECTED_APP_SECRET}}" 
             },
           {
-            "id": "MuleRepository", 
-            "username": "${{ secrets.MULE_ENT_USERNAME_NEXUS }}", 
-            "password": "${{ secrets.MULE_ENT_PASSWORD_NEXUS }}" 
-            }, 
-          {
             "id": "github", 
             "username": "${{secrets.githubusername}}", 
             "password": "${{secrets.githubtoken}}" 
@@ -133,4 +128,22 @@ jobs:
       run: mvn deploy -e -DskipTests
     - name: Deploy to ${{ env.deploymentTarget }} 
       run: >
-        mvn clean deploy -DskipMunitTests -DmuleDeploy -D${{ env.muleVersionProperty }}=${{ env.muleVersion }} "-D${{ env.usernameProperty }}=${{ env.anypointPlatformUsername }}" "-D${{ env.passwordProperty }}=${{ env.anypointPlatformPassword }}" -D${{ env.vCoresProperty }}=${{ env.vCores }} -D${{ env.anypointPlatformEnvProperty }}=${{ env.anypointPlatformEnvName }} -D${{ env.businessgroupIdProperty }}=${{ env.businessGroupId }} -D${{ env.applicationNameProperty }}=${{ env.applicationName }} -D${{ env.anypointPlatformClientIdProperty }}=${{ env.anypointPlatformClientId }} -D${{ env.anypointPlatformClientSecretProperty }}=${{ env.anypointPlatformClientSecret }} -D${{ env.replicasProperty }}=${{ env.replicas }} -D${{ env.targetProperty }}=${{ env.target }} -D${{ env.providerProperty }}=${{ env.provider }} -D${{ env.clusteredProperty }}=${{ env.clustered }} -D${{ env.updateStrategyProperty }}=${{ env.updateStrategy }} -D${{ env.publicUrlProperty }}=${{ env.publicUrl }} -D${{ env.forwardSslSessionProperty }}=${{ env.forwardSslSession }} -D${{ env.lastMileSecurityProperty }}=${{ env.lastMileSecurity }} -D${{ env.deploymentTimeoutProperty }}=${{ env.deploymentTimeout }}
+        mvn clean deploy -DskipMunitTests -DmuleDeploy 
+        -D${{ env.muleVersionProperty }}=${{ env.muleVersion }} 
+        "-D${{ env.usernameProperty }}=${{ env.anypointPlatformUsername }}" 
+        "-D${{ env.passwordProperty }}=${{ env.anypointPlatformPassword }}" 
+        -D${{ env.vCoresProperty }}=${{ env.vCores }} 
+        -D${{ env.anypointPlatformEnvProperty }}=${{ env.anypointPlatformEnvName }} 
+        -D${{ env.businessgroupIdProperty }}=${{ env.businessGroupId }} 
+        -D${{ env.applicationNameProperty }}=${{ env.applicationName }} 
+        -D${{ env.anypointPlatformClientIdProperty }}=${{ env.anypointPlatformClientId }} 
+        -D${{ env.anypointPlatformClientSecretProperty }}=${{ env.anypointPlatformClientSecret }} 
+        -D${{ env.replicasProperty }}=${{ env.replicas }} 
+        -D${{ env.targetProperty }}=${{ env.target }} 
+        -D${{ env.providerProperty }}=${{ env.provider }} 
+        -D${{ env.clusteredProperty }}=${{ env.clustered }} 
+        -D${{ env.updateStrategyProperty }}=${{ env.updateStrategy }} 
+        -D${{ env.publicUrlProperty }}=${{ env.publicUrl }} 
+        -D${{ env.forwardSslSessionProperty }}=${{ env.forwardSslSession }} 
+        -D${{ env.lastMileSecurityProperty }}=${{ env.lastMileSecurity }} 
+        -D${{ env.deploymentTimeoutProperty }}=${{ env.deploymentTimeout }}
