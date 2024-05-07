@@ -32,7 +32,7 @@ env:
   anypointPlatformPassword: ${{ secrets.anypoint_password}}                          # Anypoint Platform Identity Password for deployment
   anypointPlatformEnvName: DEV                                                       # Environment name of the deployment target environment (Case Sensitive)
   anypointPlatformBusinessGroup: "Devops"                                            # The runtime Business Group (Default: master org)
-  businessGroupId: ${{ secrets.businessGroupId }}                                    # Businessgroup ID from Anypoint platform
+  businessGroupId: "6b17e4a4-01de-4eb5-9937-98319fffc195"                            # Businessgroup ID from Anypoint platform
   anypointPlatformClientId: ${{ secrets.anypoint_platform_client_id }}                    # Cloudhub Environment Client ID
   anypointPlatformClientSecret: ${{ secrets.anypoint_platform_client_secret }}            # Cloudhub Environment Client Secret
   deploymentTimeout: 1000000                                                                  # deployment timeout setting
@@ -126,10 +126,7 @@ jobs:
     - run: |
         cat ~/.m2/settings.xml
     - name: Publish a package
-      run: >
-        mvn deploy -e 
-        -DskipTests 
-        -D${{ env.businessGroupIdProperty }}=${{ env.businessGroupId }} # command to deploy the application in exchange as a mandatory step as per the Cloudhub V2
+      run: mvn deploy -e -DskipTests  # command to deploy the application in exchange as a mandatory step as per the Cloudhub V2
     - name: Deploy to ${{ env.deploymentTarget }} 
       run: >
         mvn clean deploy -DskipMunitTests -DmuleDeploy 
