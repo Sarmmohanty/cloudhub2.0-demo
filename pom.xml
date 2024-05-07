@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>${businessGroupId}</groupId>
+	<groupId>6b17e4a4-01de-4eb5-9937-98319fffc195</groupId>
 	<artifactId>cloudhub2-poc-api</artifactId>
 	<version>1.0.0</version>
 	<packaging>mule-application</packaging>
@@ -15,7 +15,7 @@
 
 		<app.runtime>4.4.0</app.runtime>
 		<mule.maven.plugin.version>3.8.2</mule.maven.plugin.version>
-		<businessGroupId>${businessGroupId}</businessGroupId>
+		<businessGroupId>6b17e4a4-01de-4eb5-9937-98319fffc195</businessGroupId>
 	</properties>
 
 	<build>
@@ -112,7 +112,7 @@
 	  	<repository>
 	  		<id>anypoint-exchange-v3</id>
 	  		<name>Anypoint Exchange</name>
-	  		<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/${project.groupId}/maven</url>
+	  		<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/6b17e4a4-01de-4eb5-9937-98319fffc195/maven</url>
 	  		<layout>default</layout>
 	  	</repository>
 	</distributionManagement>
