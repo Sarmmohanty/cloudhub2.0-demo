@@ -1,12 +1,12 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: Sandbox Deployment Pipeline
+name: UAT Deployment Pipeline
 
 on:
   push:
     branches:
-      - sandbox-deploy
+      - release
 
 # Set environment variables
 env:
@@ -24,14 +24,14 @@ env:
 
   # Common Properties for all deployment targets
   anypointPlatformBaseUri: https://anypoint.mulesoft.com/                                    # always https://anypoint.mulesoft.com/
-  workflowEnv: sandbox                                                                            # this maps to mule application {env} properties
-  applicationName:  "cloudhub2-demo-api"                                    # Application Name in Runtime Manager
+  workflowEnv: uat                                                                            # this maps to mule application {env} properties
+  applicationName:  "cloudhub2-poc-api-uat"                                    # Application Name in Runtime Manager
   muleVersion: 4.4.0                                                                          # Mule Version to be deployed - maps to app.runtime
   anypointPlatformUsername: ${{ secrets.anypoint_username }}                         # Anypoint Platform Identity Username for deployment
   anypointPlatformPassword: ${{ secrets.anypoint_password}}                          # Anypoint Platform Identity Password for deployment
-  anypointPlatformEnvName: Sandbox                                                                # Environment name of the deployment target environment (Case Sensitive)
-  anypointPlatformBusinessGroup: "del"                                      # The runtime Business Group (Default: master org)
-  businessGroupId: "cc019e21-2cae-4f0a-8551-67c5ace4b427"                                       # Businessgroup ID from Anypoint platform
+  anypointPlatformEnvName: UAT                                                                # Environment name of the deployment target environment (Case Sensitive)
+  anypointPlatformBusinessGroup: "Devops"                                      # The runtime Business Group (Default: master org)
+  businessGroupId: "6b17e4a4-01de-4eb5-9937-98319fffc195"                                       # Businessgroup ID from Anypoint platform
   anypointPlatformClientId: ${{ secrets.anypoint_platform_client_id }}                    # Cloudhub Environment Client ID
   anypointPlatformClientSecret: ${{ secrets.anypoint_platform_client_secret }}            # Cloudhub Environment Client Secret
   deploymentTimeout: 1000000                                                                  # deployment timeout setting
@@ -44,7 +44,7 @@ env:
   clustered: "true"
   updateStrategy: "rolling"
   objectStoreV2: "false"                                                                            # Please provide the value as true or false based on object store usage in your application  
-  publicUrl: "https://ch2.com/cloudhub2-demo-api"
+  publicUrl: "https://ch2.com/cloudhub2-demo-api/uat/"
   forwardSslSession: "false"
   lastMileSecurity: "false"
 
