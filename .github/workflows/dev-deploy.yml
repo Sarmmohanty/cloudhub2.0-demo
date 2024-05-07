@@ -30,9 +30,9 @@ env:
   muleVersion: 4.4.0                                                                          # Mule Version to be deployed - maps to app.runtime
   anypointPlatformUsername: ${{ secrets.anypoint_username }}                         # Anypoint Platform Identity Username for deployment
   anypointPlatformPassword: ${{ secrets.anypoint_password}}                          # Anypoint Platform Identity Password for deployment
-  anypointPlatformEnvName: DEV                                                                # Environment name of the deployment target environment (Case Sensitive)
-  anypointPlatformBusinessGroup: "Devops"                                      # The runtime Business Group (Default: master org)
-  businessGroupId: 6b17e4a4-01de-4eb5-9937-98319fffc195                                       # Businessgroup ID from Anypoint platform
+  anypointPlatformEnvName: DEV                                                       # Environment name of the deployment target environment (Case Sensitive)
+  anypointPlatformBusinessGroup: "Devops"                                            # The runtime Business Group (Default: master org)
+  businessGroupId: ${{ secrets.businessGroupId }}                                    # Businessgroup ID from Anypoint platform
   anypointPlatformClientId: ${{ secrets.anypoint_platform_client_id }}                    # Cloudhub Environment Client ID
   anypointPlatformClientSecret: ${{ secrets.anypoint_platform_client_secret }}            # Cloudhub Environment Client Secret
   deploymentTimeout: 1000000                                                                  # deployment timeout setting
