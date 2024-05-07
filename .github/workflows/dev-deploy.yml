@@ -54,7 +54,7 @@ env:
   usernameProperty: "username"                                                                # Name of the property that contains the Anypoint deployment username
   passwordProperty: "password"                                                                # Name of the property that contains the Anypoint deployment password
   anypointPlatformEnvProperty: "anypoint_platform_env"                                        # Name of the property that contains the Anypoint environment
-  businessgroupIdProperty: "businessgroupId"                                                  # Name of the property that contains the Anypoint Business Group Id
+  businessGroupIdProperty: "businessGroupId"                                                  # Name of the property that contains the Anypoint Business Group Id
   anypointPlatformBusinessGroupProperty: "anypoint_platform_business_group"                   # Name of the property that contains the Anypoint Business Group Name
   applicationNameProperty: "applicationName"                                                  # Name of the property that contains the application name
   envProperty: "env"                                                                          # Name of the property that selects the appropriate config files
@@ -129,7 +129,7 @@ jobs:
       run: >
         mvn deploy -e 
         -DskipTests 
-        -D${{ env.businessgroupIdProperty }}=${{ env.businessGroupId }} # command to deploy the application in exchange as a mandatory step as per the Cloudhub V2
+        -D${{ env.businessGroupIdProperty }}=${{ env.businessGroupId }} # command to deploy the application in exchange as a mandatory step as per the Cloudhub V2
     - name: Deploy to ${{ env.deploymentTarget }} 
       run: >
         mvn clean deploy -DskipMunitTests -DmuleDeploy 
@@ -138,7 +138,7 @@ jobs:
         "-D${{ env.passwordProperty }}=${{ env.anypointPlatformPassword }}" 
         -D${{ env.vCoresProperty }}=${{ env.vCores }} 
         -D${{ env.anypointPlatformEnvProperty }}=${{ env.anypointPlatformEnvName }} 
-        -D${{ env.businessgroupIdProperty }}=${{ env.businessGroupId }} 
+        -D${{ env.businessGroupIdProperty }}=${{ env.businessGroupId }} 
         -D${{ env.applicationNameProperty }}=${{ env.applicationName }} 
         -D${{ env.anypointPlatformClientIdProperty }}=${{ env.anypointPlatformClientId }} 
         -D${{ env.anypointPlatformClientSecretProperty }}=${{ env.anypointPlatformClientSecret }} 
