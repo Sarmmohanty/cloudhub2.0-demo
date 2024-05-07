@@ -38,8 +38,8 @@ env:
   deploymentTimeout: 1000000                                                                  # deployment timeout setting
   anypointPlatformRegionName: us-east-1                                                       # standard naming convention 
   deploymentTarget: "CloudHub2.0"                                                                     
-  replicas: 2
-  vCores: 0.2
+  replicas: 1
+  vCores: 0.1
   target: Cloudhub-US-East-2
   provider: MC
   clustered: "true"
@@ -126,7 +126,7 @@ jobs:
     - run: |
         cat ~/.m2/settings.xml
     - name: Publish a package
-      run: mvn deploy -e -DskipTests # command to deploy the application in exchange as a mandatory step as per the Cloudhub V2
+      run: mvn deploy -e -DskipTests -DbusinessGroupId=${{ env.businessGroupId }} # command to deploy the application in exchange as a mandatory step as per the Cloudhub V2
     - name: Deploy to ${{ env.deploymentTarget }} 
       run: >
         mvn clean deploy -DskipMunitTests -DmuleDeploy 
