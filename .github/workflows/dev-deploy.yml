@@ -126,7 +126,7 @@ jobs:
     - run: |
         cat ~/.m2/settings.xml
     - name: Publish a package
-      run: mvn clean deploy -e -DskipTests -DbusinessGroupId=${{ env.businessGroupId }}  # command to deploy the application in exchange as a mandatory step as per the Cloudhub V2
+      run: mvn clean deploy -DskipTests -DbusinessGroupId=${{ env.businessGroupId }}  # command to deploy the application in exchange as a mandatory step as per the Cloudhub V2
     - name: Deploy to ${{ env.deploymentTarget }} 
       run: >
         mvn clean deploy -DskipMunitTests -DmuleDeploy 
