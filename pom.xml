@@ -2,18 +2,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>6b17e4a4-01de-4eb5-9937-98319fffc195</groupId>
-	<artifactId>cloudhub2-poc-api</artifactId>
-	<version>1.0.2</version>
+	<groupId>b0e42eef-9d72-4a0e-937b-5add27666d99</groupId>
+	<artifactId>cloudhub2-github-actions-api</artifactId>
+	<version>1.0.0</version>
 	<packaging>mule-application</packaging>
 
-	<name>cloudhub2-poc-api</name>
+	<name>cloudhub2-github-actions-api</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<app.runtime>4.4.0</app.runtime>
-		<mule.maven.plugin.version>3.8.2</mule.maven.plugin.version>
+		<mule.maven.plugin.version>3.8.6</mule.maven.plugin.version>
 	</properties>
 
 	<build>
