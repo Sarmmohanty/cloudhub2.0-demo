@@ -26,13 +26,13 @@ env:
   # Common Properties for all deployment targets
   anypointPlatformBaseUri: https://anypoint.mulesoft.com/                                    # always https://anypoint.mulesoft.com/
   workflowEnv: dev                                                                            # this maps to mule application {env} properties
-  applicationName:  "cloudhub2-poc-api-dev"                                    # Application Name in Runtime Manager
+  applicationName:  "cloudhub2-github-actions-api-dev"                                    # Application Name in Runtime Manager
   muleVersion: 4.4.0                                                                          # Mule Version to be deployed - maps to app.runtime
   anypointPlatformUsername: ${{ secrets.anypoint_username }}                         # Anypoint Platform Identity Username for deployment
   anypointPlatformPassword: ${{ secrets.anypoint_password}}                          # Anypoint Platform Identity Password for deployment
   anypointPlatformEnvName: DEV                                                       # Environment name of the deployment target environment (Case Sensitive)
-  anypointPlatformBusinessGroup: "Devops"                                            # The runtime Business Group (Default: master org)
-  businessGroupId: "6b17e4a4-01de-4eb5-9937-98319fffc195"                            # Businessgroup ID from Anypoint platform
+  anypointPlatformBusinessGroup: "DevOps"                                            # The runtime Business Group (Default: master org)
+  businessGroupId: "b0e42eef-9d72-4a0e-937b-5add27666d99"                            # Businessgroup ID from Anypoint platform
   anypointPlatformClientId: ${{ secrets.anypoint_platform_client_id }}                    # Cloudhub Environment Client ID
   anypointPlatformClientSecret: ${{ secrets.anypoint_platform_client_secret }}            # Cloudhub Environment Client Secret
   deploymentTimeout: 1000000                                                                  # deployment timeout setting
@@ -45,7 +45,7 @@ env:
   clustered: "true"
   updateStrategy: "rolling"
   objectStoreV2: "false"                                                                            # Please provide the value as true or false based on object store usage in your application  
-  publicUrl: "https://ch2.com/cloudhub2-poc-api/dev/"
+  publicUrl: "https://ch2.com/cloudhub2-github-actions-api/dev/"
   forwardSslSession: "false"
   lastMileSecurity: "false"
 
