@@ -116,7 +116,12 @@ jobs:
             "id": "github", 
             "username": "${{secrets.githubusername}}", 
             "password": "${{secrets.githubtoken}}" 
-            }
+            },
+          {
+            "id": "anypoint-connected-app",
+            "username": "${{ secrets.CONNECTED_APP_ID }}",
+            "password": "${{ secrets.CONNECTED_APP_SECRET}}" 
+           }
         ]'
         repositories: '[
           {
@@ -126,6 +131,10 @@ jobs:
           {
             "id": "anypoint-exchange-v2", 
             "url": "https://maven.anypoint.mulesoft.com/api/v2/maven"
+            },
+          {
+            "id": "anypoint-exchange-v3", 
+            "url": "https://maven.anypoint.mulesoft.com/api/v3/maven"
             }
         ]'
 

@@ -133,6 +133,12 @@
 
 	<repositories>
 		<repository>
+			<id>anypoint-exchange-v2</id>
+			<name>Anypoint Exchange V2</name>
+			<url>https://maven.anypoint.mulesoft.com/api/v2/maven</url>
+			<layout>default</layout>
+		</repository>
+		<repository>
 			<id>anypoint-exchange-v3</id>
 			<name>Anypoint Exchange</name>
 			<url>https://maven.anypoint.mulesoft.com/api/v3/maven</url>
@@ -152,10 +158,16 @@
 		</repository>
 	</repositories>
 	<distributionManagement>
-		<repository>
+		<!-- <repository>
 			<id>anypoint-exchange-v3</id>
 			<name>Anypoint Exchange</name>
 			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/${project.groupId}/maven</url>
+			<layout>default</layout>
+		</repository> -->
+		<repository>
+			<id>anypoint-connected-app</id>
+			<name>Exchange Private Repository</name>
+			<url>https://maven.anypoint.mulesoft.com/api/v2/organizations/${project.groupId}/maven</url>
 			<layout>default</layout>
 		</repository>
 	</distributionManagement>
