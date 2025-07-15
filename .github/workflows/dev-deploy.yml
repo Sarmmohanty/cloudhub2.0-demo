@@ -119,8 +119,8 @@ jobs:
             },
           {
             "id": "anypoint-connected-app",
-            "username": "${{ secrets.CONNECTED_APP_ID }}",
-            "password": "${{ secrets.CONNECTED_APP_SECRET}}" 
+            "username": "~~~Client~~~", 
+            "password": "${{ secrets.CONNECTED_APP_ID}}~?~${{secrets.CONNECTED_APP_SECRET}}"  
            }
         ]'
         repositories: '[
