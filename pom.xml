@@ -167,7 +167,7 @@
 		<repository>
 			<id>anypoint-connected-app</id>
 			<name>Exchange Private Repository</name>
-			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/${project.groupId}/maven</url>
+			<url>https://maven.anypoint.mulesoft.com/api/v2/organizations/0ff345ba-e059-4111-b27a-28e50bf6168f/maven</url>
 			<layout>default</layout>
 		</repository>
 	</distributionManagement>
