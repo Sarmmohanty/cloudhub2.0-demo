@@ -36,6 +36,8 @@
 						<provider>${provider}</provider>
 						<target>${target}</target>
 						<muleVersion>${muleVersion}</muleVersion>
+						<releaseChannel>LTS</releaseChannel>
+						<javaVersion>17</javaVersion>
 						<environment>${anypointPlatformEnvName}</environment>
 						<username>${anypointPlatformUsername}</username>
 						<password>${anypointPlatformPassword}</password>
