@@ -4,10 +4,9 @@
 name: Develop Deployment Pipeline
 
 on:
-  pull_request:
-    types: [ closed ]
+  push:
     branches:
-      - develop-version
+      - hold-feature-munit
 
 # Set environment variables
 env:
@@ -26,7 +25,7 @@ env:
   # Common Properties for all deployment targets
   anypointPlatformBaseUri: https://anypoint.mulesoft.com/                                    # always https://anypoint.mulesoft.com/
   workflowEnv: dev                                                                            # this maps to mule application {env} properties
-  applicationName:  "ch2-github-actions-api-dev"                                    # Application Name in Runtime Manager
+  applicationName:  "cloudhub2-github-actions-api-dev"                                    # Application Name in Runtime Manager
   muleVersion: 4.9.6                                                                          # Mule Version to be deployed - maps to app.runtime
   anypointPlatformUsername: ${{ secrets.anypoint_username }}                         # Anypoint Platform Identity Username for deployment
   anypointPlatformPassword: ${{ secrets.anypoint_password}}                          # Anypoint Platform Identity Password for deployment
@@ -45,7 +44,7 @@ env:
   clustered: "false"
   updateStrategy: "rolling"
   objectStoreV2: "false"                                                                            # Please provide the value as true or false based on object store usage in your application  
-  publicUrl: "https://ch2.com/github-actions-api/dev/"
+  publicUrl: "https://ch2.com/cloudhub2-github-actions-api/dev/"
   forwardSslSession: "false"
   lastMileSecurity: "false"
 
@@ -131,26 +130,6 @@ jobs:
 
     - run: |
         cat ~/.m2/settings.xml
-    - name: Publish a package
-      run: mvn clean deploy -DskipTests              # command to deploy the application in exchange as a mandatory step as per the Cloudhub V2
-    - name: Deploy to ${{ env.deploymentTarget }} 
+    - name: Unit Test the changes 
       run: >
-        mvn clean deploy -DskipMunitTests -DmuleDeploy 
-        -D${{ env.muleVersionProperty }}=${{ env.muleVersion }} 
-        "-D${{ env.usernameProperty }}=${{ env.anypointPlatformUsername }}" 
-        "-D${{ env.passwordProperty }}=${{ env.anypointPlatformPassword }}" 
-        -D${{ env.vCoresProperty }}=${{ env.vCores }} 
-        -D${{ env.anypointPlatformEnvProperty }}=${{ env.anypointPlatformEnvName }} 
-        -D${{ env.businessGroupIdProperty }}=${{ env.businessGroupId }} 
-        -D${{ env.applicationNameProperty }}=${{ env.applicationName }} 
-        -D${{ env.anypointPlatformClientIdProperty }}=${{ env.anypointPlatformClientId }} 
-        -D${{ env.anypointPlatformClientSecretProperty }}=${{ env.anypointPlatformClientSecret }} 
-        -D${{ env.replicasProperty }}=${{ env.replicas }} 
-        -D${{ env.targetProperty }}=${{ env.target }} 
-        -D${{ env.providerProperty }}=${{ env.provider }} 
-        -D${{ env.clusteredProperty }}=${{ env.clustered }} 
-        -D${{ env.updateStrategyProperty }}=${{ env.updateStrategy }} 
-        -D${{ env.publicUrlProperty }}=${{ env.publicUrl }} 
-        -D${{ env.forwardSslSessionProperty }}=${{ env.forwardSslSession }} 
-        -D${{ env.lastMileSecurityProperty }}=${{ env.lastMileSecurity }} 
-        -D${{ env.deploymentTimeoutProperty }}=${{ env.deploymentTimeout }}
+        mvn test
