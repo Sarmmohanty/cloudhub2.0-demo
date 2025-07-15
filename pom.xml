@@ -158,18 +158,18 @@
 		</repository>
 	</repositories>
 	<distributionManagement>
-		<repository>
+		<!--<repository>
 			<id>anypoint-exchange-v3</id>
 			<name>Anypoint Exchange</name>
 			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/${project.groupId}/maven</url>
 			<layout>default</layout>
-		</repository>
-		<!-- <repository>
+		</repository> -->
+		<repository>
 			<id>anypoint-connected-app</id>
 			<name>Exchange Private Repository</name>
 			<url>https://maven.anypoint.mulesoft.com/api/v2/organizations/f717890e-6653-46ef-9be8-f28c8f6522a4/maven</url>
 			<layout>default</layout>
-		</repository> -->
+		</repository>
 	</distributionManagement>
 	
 	<pluginRepositories>
