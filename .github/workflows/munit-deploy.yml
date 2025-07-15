@@ -1,0 +1,136 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Develop Deployment Pipeline
+
+on:
+  pull_request:
+    types: [ closed ]
+    branches:
+      - feature-munit
+
+# Set environment variables
+env:
+
+  # notes for applications properties (update pom.xml with these values and update both notes & pom.xml when change is needed):
+  # <app.runtime>: 4.4.0                  # Please keep runtime updated to the latest
+  # <mule.maven.plugin.version>: 3.3.5    # please keep plugin updated to the latest
+
+  # remember to update constant value of the following properties in pom.xml:
+  # <artifactId>, <groupId>, <version>
+
+  #
+  # Core pom.xml Properties (Required - These values must match pom.xml - DO NOT replace pom.xml with these variables)
+                                                                       # Application Project name
+
+  # Common Properties for all deployment targets
+  anypointPlatformBaseUri: https://anypoint.mulesoft.com/                                    # always https://anypoint.mulesoft.com/
+  workflowEnv: dev                                                                            # this maps to mule application {env} properties
+  applicationName:  "cloudhub2-github-actions-api-dev"                                    # Application Name in Runtime Manager
+  muleVersion: 4.9.6                                                                          # Mule Version to be deployed - maps to app.runtime
+  anypointPlatformUsername: ${{ secrets.anypoint_username }}                         # Anypoint Platform Identity Username for deployment
+  anypointPlatformPassword: ${{ secrets.anypoint_password}}                          # Anypoint Platform Identity Password for deployment
+  anypointPlatformEnvName: DEV                                                       # Environment name of the deployment target environment (Case Sensitive)
+  anypointPlatformBusinessGroup: "DevOps"                                            # The runtime Business Group (Default: master org)
+  businessGroupId: "0ff345ba-e059-4111-b27a-28e50bf6168f"                            # Businessgroup ID from Anypoint platform
+  anypointPlatformClientId: ${{ secrets.anypoint_platform_client_id }}                    # Cloudhub Environment Client ID
+  anypointPlatformClientSecret: ${{ secrets.anypoint_platform_client_secret }}            # Cloudhub Environment Client Secret
+  deploymentTimeout: 1000000                                                                  # deployment timeout setting
+  anypointPlatformRegionName: us-east-1                                                       # standard naming convention 
+  deploymentTarget: "CloudHub2.0"                                                                     
+  replicas: 1
+  vCores: 0.1
+  target: Cloudhub-US-East-2
+  provider: MC
+  clustered: "false"
+  updateStrategy: "rolling"
+  objectStoreV2: "false"                                                                            # Please provide the value as true or false based on object store usage in your application  
+  publicUrl: "https://ch2.com/cloudhub2-github-actions-api/dev/"
+  forwardSslSession: "false"
+  lastMileSecurity: "false"
+
+  anypointPlatformBaseUriProperty: "anypointPlatformBaseUri"                                  # Name of the property that contains the Anypoint Base URI
+  muleVersionProperty: "muleVersion"                                                          # Name of the property that contains the MuleSoft runtime version
+  usernameProperty: "username"                                                                # Name of the property that contains the Anypoint deployment username
+  passwordProperty: "password"                                                                # Name of the property that contains the Anypoint deployment password
+  anypointPlatformEnvProperty: "anypoint_platform_env"                                        # Name of the property that contains the Anypoint environment
+  businessGroupIdProperty: "businessGroupId"                                                  # Name of the property that contains the Anypoint Business Group Id
+  anypointPlatformBusinessGroupProperty: "anypoint_platform_business_group"                   # Name of the property that contains the Anypoint Business Group Name
+  applicationNameProperty: "applicationName"                                                  # Name of the property that contains the application name
+  envProperty: "env"                                                                          # Name of the property that selects the appropriate config files
+  anypointPlatformClientIdProperty: "anypoint_platform_client_id"                             # Name of the property that contains the Anypoint Platform Client Id
+  anypointPlatformClientSecretProperty: "anypoint_platform_client_secret"                     # Name of the property that contains the Anypoint Platform Client Secret
+  regionProperty: "region"                                                                    # Name of the property that contains the region e.g. use1
+  targetProperty: "target"                                                                    # Name of the property that contains the CloudHub2.0 target
+  apiProjectProperty: "apiProject"                                                            # Name of the property that contains the name of the project
+  deploymentTimeoutProperty: "deploymentTimeout"                                              # Name of the property that contains the Deployment timeout value
+  anypointMQClientIdProperty: "mq_client_id"                                                  # Name of the property that contains the Anypoint MQ Client Id
+  anypointMQClientSecretProperty: "mq_client_secret"                                          # Name of the property that contains the Anypoint MQ Client Secret
+  replicasProperty: "replicas"
+  vCoresProperty: "vCores"
+  providerProperty: "provider"
+  clusteredProperty: "clustered"
+  updateStrategyProperty: "updateStrategy" #To avoid zero downtime
+  objectStoreV2Property: "objectStoreV2"
+  publicUrlProperty: "publicUrl"                                                              # Name of the property that contains the publicUrl
+  forwardSslSessionProperty: "forwardSslSession"
+  lastMileSecurityProperty: "lastMileSecurity"
+
+
+# **************************************** DO NOT MAKE ANY CHANGES TO THIS SCRIPT BELOW THIS POINT ****************************************************
+jobs:
+  Build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 17 version
+      uses: actions/setup-java@v1
+      with:
+        java-version: 17
+        #path: ~/.m2/repository
+        #server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        #settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+    - name: Set up Maven Action
+      uses: s4u/setup-maven-action@v1.7.0
+      with:
+        java-version: 17
+        maven-version: 3.9.9
+
+    - name: Create maven settings.xml
+      uses: whelk-io/maven-settings-xml-action@v9
+      with:
+        servers: '[
+          {
+            "id": "anypoint-exchange-v2", 
+            "username": "${{ secrets.anypoint_username }}", 
+            "password": "${{ secrets.anypoint_password}}" 
+            },
+            {
+            "id": "anypoint-exchange-v3", 
+            "username": "~~~Client~~~", 
+            "password": "${{ secrets.CONNECTED_APP_ID}}~?~${{secrets.CONNECTED_APP_SECRET}}" 
+            },
+          {
+            "id": "github", 
+            "username": "${{secrets.githubusername}}", 
+            "password": "${{secrets.githubtoken}}" 
+            }
+        ]'
+        repositories: '[
+          {
+            "id": "MuleRepository", 
+            "url": "https://repository.mulesoft.org/nexus-ee/content/repositories/releases-ee/"
+            },
+          {
+            "id": "anypoint-exchange-v2", 
+            "url": "https://maven.anypoint.mulesoft.com/api/v2/maven"
+            }
+        ]'
+
+    - run: |
+        cat ~/.m2/settings.xml
+    - name: Unit Test the changes 
+      run: >
+        mvn test
